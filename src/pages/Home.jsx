@@ -1,8 +1,9 @@
 import React from "react";
 import HeroSection from "../components/HeroSection";
 import { useProductContext } from "../context/productcontext";
-import Featured from "../components/Featured";
+import Featured from "../components/BestSellers";
 import Catagories from "../components/Catagories";
+import BestSellers from "../components/BestSellers";
 
 const Home = () => {
   const data = {
@@ -16,6 +17,7 @@ const Home = () => {
       {name}
       <HeroSection mydata={data}/>
       <Catagories/>
+      <BestSellers/>
     </div>
   );
 };

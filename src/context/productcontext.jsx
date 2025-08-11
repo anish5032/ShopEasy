@@ -1,40 +1,23 @@
 import { createContext, useContext, useEffect, useState } from "react";
+import { products } from "../assets/assets";
 
 const AppContext = createContext();
-const API = "https://api.pujakaitem.com/api/products";
 
 const AppProvider = ({ children }) => {
-  const [featured, setFeatured] = useState([]);
-
-  const getProducts = async (url) => {
-    try {
-      const res = await fetch(url);
-      const products =await res.json();
-      
-      
-      
-
-      const featuredData = products.filter((e) => e.featured === true);
-      setFeatured(featuredData);
-      
-    } catch (error) {
-      console.error("Error fetching products:", error);
-    }
-  };
+  const [bestsellers, setBestsellers] = useState([]);
 
   useEffect(() => {
-    getProducts(API);
+    const bestSellers = products.filter(product => product.bestseller);
+    setBestsellers(bestSellers);
   }, []);
 
   return (
-    <AppContext.Provider value={{ featured }}>
+    <AppContext.Provider value={{ bestsellers }}>
       {children}
     </AppContext.Provider>
   );
 };
 
-const useProductContext = () => {
-  return useContext(AppContext);
-};
+const useProductContext = () => useContext(AppContext);
 
 export { AppProvider, useProductContext };

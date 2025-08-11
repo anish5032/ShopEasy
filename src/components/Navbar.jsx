@@ -29,7 +29,7 @@ const Navbar = () => {
           <hr className=" w-8 h-0.5 bg-[#414141] hidden"></hr>
         </NavLink>
         <NavLink
-          to="/Category"
+          to="/category"
           className="text-gray-500 hover:text-black flex flex-col items-center justify-center"
         >
           <p>Category</p>
