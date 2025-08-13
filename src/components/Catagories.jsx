@@ -3,7 +3,7 @@ import { assets } from '../assets/assets'
 
 const Catagories = () => {
   return (
-    <div className='mt-4 px-6'>
+    <div className='mt-4 px-2.5'>
         
         <h1 className='text-xl'>Categories to explore</h1>
 

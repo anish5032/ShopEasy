@@ -1,36 +1,45 @@
-import React from 'react';
+import React from "react";
 import { FaFacebook, FaInstagram, FaPinterest } from "react-icons/fa";
 import { BsTwitterX } from "react-icons/bs";
+import { assets } from "../assets/assets";
 
 const Footer = () => {
   return (
-    <footer className="w-full">
-      <div className="flex flex-col md:flex-row bg-[#767474] p-4 md:justify-between md:items-center text-white mt-8">
-        
-        {/* Left Section */}
-        <div className="flex flex-col mb-4 md:mb-0">
-          <h2 className="prata-regular text-lg font-bold">ShopEasy</h2>
-          <p className="text-sm">The best online shopping platform for all your needs</p>
-          <p className="mt-1 text-[#323131] text-xs">©2025 ShopEasy. All rights reserved</p>
+    <footer className="flex items-center justify-between p-6">
+      <div className="left w-sm">
+        <img className="w-40" src={assets.logo} alt="" />
+        <p className="ml-4">
+          "At ShopEasy, we believe shopping should be simple, enjoyable, and
+          affordable. From everyday essentials to unique finds, we bring you
+          quality products at prices you’ll love — all from the comfort of your
+          home."
+        </p>
+      </div>
+
+      <div className="middle">
+        <h2 className="text-xl font-medium">COMPANY</h2>
+        <ul className="flex flex-col gap-1 mt-4">
+          <li className="hover:underline cursor-pointer">Home</li>
+          <li className="hover:underline cursor-pointer">About</li>
+          <li className="hover:underline cursor-pointer">Contact</li>
+        </ul>
+      </div>
+
+      <div className="right flex flex-col gap-6 mt-4">
+        <div>
+          <p className="mb-4 text-xl font-medium">GET IN TOUCH</p>
+          <p className="text-gray-500 hover:underline cursor-pointer">
+            +1 235546456
+          </p>
+          <p className="text-gray-500 hover:underline cursor-pointer">
+            shopeasy@gmail.com
+          </p>
         </div>
 
-        {/* Right Section */}
-        <div className="flex flex-col gap-4">
-          
-          {/* Social Icons */}
-          <div className="flex gap-4 justify-center">
-            <a href="#"><FaFacebook size={28} className="hover:text-blue-500 transition duration-500" /></a>
-            <a href="#"><FaInstagram size={28} className="hover:text-pink-500 transition duration-500" /></a>
-            <a href="#"><BsTwitterX size={28} className="hover:text-gray-300 transition duration-500" /></a>
-            <a href="#"><FaPinterest size={28} className="hover:text-red-500 transition duration-500" /></a>
-          </div>
-
-          {/* Footer Links */}
-          <div className="flex gap-4 text-sm justify-center">
-            <a href="#" className="hover:underline">Privacy Policy</a>
-            <a href="#" className="hover:underline">Terms of Service</a>
-            <a href="#" className="hover:underline">Help</a>
-          </div>
+        <div className="logos flex gap-4">
+          <FaFacebook className="cursor-pointer hover:text-blue-500 hover:scale-105 duration-400" size={30} />
+          <FaInstagram className="cursor-pointer hover:text-pink-500 hover:scale-105 duration-400" size={30} />
+          <BsTwitterX className="cursor-pointer hover:text-gray-500 hover:scale-105 duration-400" size={30} />
         </div>
       </div>
     </footer>
