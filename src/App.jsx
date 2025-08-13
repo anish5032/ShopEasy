@@ -8,6 +8,7 @@ import Singleprod from "./pages/Singleprod";
 import Cart from "./pages/Cart";
 import ErrorPage from "./pages/ErrorPage";
 import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
 
 function App() {
   return (
@@ -27,6 +28,8 @@ function App() {
           </Routes>
         </div>
       </Router>
+
+      <Footer/>
     </div>
   );
 }
