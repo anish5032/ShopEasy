@@ -5,6 +5,7 @@ const AppContext = createContext();
 
 const AppProvider = ({ children }) => {
   const [bestsellers, setBestsellers] = useState([]);
+  const prods=products;
 
   useEffect(() => {
     const bestSellers = products.filter(product => product.bestseller);
@@ -12,7 +13,7 @@ const AppProvider = ({ children }) => {
   }, []);
 
   return (
-    <AppContext.Provider value={{ bestsellers }}>
+    <AppContext.Provider value={{ bestsellers,prods }}>
       {children}
     </AppContext.Provider>
   );

@@ -9,6 +9,7 @@ import Cart from "./pages/Cart";
 import ErrorPage from "./pages/ErrorPage";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
+import Collection from "./pages/Collection";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
             <Route path="/products" element={<Products />}></Route>
             <Route path="/singleprod/:id" element={<Singleprod />}></Route>
             <Route path="/cart" element={<Cart />}></Route>
+            <Route path="/collection" element={<Collection />}></Route>
             <Route path="*" element={<ErrorPage />}></Route>
           </Routes>
         </div>

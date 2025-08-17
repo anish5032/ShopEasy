@@ -13,8 +13,8 @@ const BestSellers = () => {
       <h1 className="text-xl">Best Sellers</h1>
 
       <div className="cards flex flex-wrap gap-8 justify-center">
-        {bestsellers.map((prod) => {
-           return <ProductItem name={prod.name} img={prod.image[0]} desc={prod.short_desc} price={prod.price}/>
+        {bestsellers.map((prod,index) => {
+           return <ProductItem key={index} name={prod.name} img={prod.image[0]} desc={prod.short_desc} price={prod.price}/>
         })}
       </div>
     </div>

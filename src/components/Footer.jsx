@@ -57,7 +57,7 @@ const Footer = () => {
 
       <div className="flex items-center flex-col mb-3">
         <hr className="w-3/4 border-t border-gray-300 my-4" />
-        <p>Copyright 2025@ shopeasy.com-All Right Reserved.</p>
+        <p className="text-gray-700">Copyright 2025@ shopeasy.com-All Right Reserved.</p>
       </div>
     </footer>
   );
