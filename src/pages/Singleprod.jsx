@@ -4,7 +4,7 @@ import { useProductContext } from '../context/productcontext';
 
 const Singleprod = () => {
   const { id } = useParams(); 
-  const { prods, cartItems, setCartItems } = useProductContext(); // ⬅️ added setCartItems
+  const { prods, cartItems, setCartItems } = useProductContext(); 
   const [product, setProduct] = useState(null);
   const [image, setImage] = useState('');
 
@@ -17,14 +17,6 @@ const Singleprod = () => {
     }
   }, [id, prods]);
 
-  // ✅ Handle loading state
-  if (!product && prods.length === 0) {
-    return (
-      <div className="p-10 text-center text-lg">
-        Loading...
-      </div>
-    );
-  }
 
   // ✅ Handle invalid product ID
   if (!product && prods.length > 0) {

@@ -2,8 +2,9 @@ import React from "react";
 
 const CartItem = ({ item, onQuantityChange, onRemove }) => {
   const handleInputChange = (e) => {
-    const value = parseInt(e.target.value);
-    onQuantityChange(item._id, isNaN(value) || value < 1 ? 1 : value);
+    const value = parseInt(e.target.value, 10);
+    const validQuantity = isNaN(value) || value < 1 ? 1 : value;
+    onQuantityChange(item._id, validQuantity);
   };
 
   return (
@@ -12,7 +13,7 @@ const CartItem = ({ item, onQuantityChange, onRemove }) => {
         {/* Product Image */}
         <div className="flex items-center">
           <img
-            src={item.image[0]} // Assuming product has images
+            src={item.image[0]} // Assuming image is an array
             alt={item.name}
             className="max-w-[100px] object-contain"
           />
@@ -23,7 +24,7 @@ const CartItem = ({ item, onQuantityChange, onRemove }) => {
           <div>
             <p className="text-xl font-semibold mb-1">{item.name}</p>
             <p className="text-lg text-gray-700 mb-4">
-              ₹{item.price.toLocaleString()}
+              ₹{Number(item.price).toLocaleString()}
             </p>
           </div>
 

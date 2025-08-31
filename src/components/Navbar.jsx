@@ -1,10 +1,21 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { NavLink,Link } from "react-router-dom";
 import { assets } from "../assets/assets";
 import { IoBag } from "react-icons/io5";
 import { IoCartSharp } from "react-icons/io5";
+import { useProductContext } from "../context/productcontext";
+import { useState } from "react";
 
 const Navbar = () => {
+  const {cartItems}=useProductContext()
+  const [count, setCount] = useState(0)
+  useEffect(() => {
+      console.log(cartItems);
+      setCount(cartItems.length)
+      console.log(count);
+  }, [cartItems])
+  
+
   return (
     <div className="flex shadow-xl mb-4 justify-between items-center px-6 py-3 bg-white">
       <div className="logo flex items-center relative">
@@ -71,7 +82,7 @@ const Navbar = () => {
         <div className="relative cursor-pointer">
           <Link to="/cart">
           <IoCartSharp className="w-6 h-6"/>
-          <p className="absolute w-4 h-4 text-xs bg-black text-white rounded-full px-1 left-[13px] top-[-6px]">0</p>
+          <p className="absolute w-4 h-4 text-xs bg-black text-white rounded-full px-1 left-[13px] top-[-6px]">{count}</p>
           </Link>
         </div>
       </div>
