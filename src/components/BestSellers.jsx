@@ -1,12 +1,10 @@
 import React from "react";
 import { useProductContext } from "../context/productcontext";
-import { NavLink } from "react-router-dom";
+import { Link,NavLink } from "react-router-dom";
 import ProductItem from "./ProductItem";
 
 const BestSellers = () => {
   const { bestsellers } = useProductContext();
-  console.log(bestsellers);
-  
 
   return (
     <div className="bg-gray-200 mt-10 p-5">
@@ -14,7 +12,9 @@ const BestSellers = () => {
 
       <div className="cards flex flex-wrap gap-8 justify-center">
         {bestsellers.map((prod,index) => {
-           return <ProductItem key={index} name={prod.name} img={prod.image[0]} desc={prod.short_desc} price={prod.price}/>
+          return <Link  to={`/singleProd/${prod._id}`} key={prod._id}>
+           <ProductItem key={index} name={prod.name} img={prod.image[0]} desc={prod.short_desc} price={prod.price}/>
+           </Link>
         })}
       </div>
     </div>

@@ -1,5 +1,5 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink,Link } from "react-router-dom";
 import { assets } from "../assets/assets";
 import { IoBag } from "react-icons/io5";
 import { IoCartSharp } from "react-icons/io5";
@@ -69,8 +69,10 @@ const Navbar = () => {
         </div>
 
         <div className="relative cursor-pointer">
+          <Link to="/cart">
           <IoCartSharp className="w-6 h-6"/>
           <p className="absolute w-4 h-4 text-xs bg-black text-white rounded-full px-1 left-[13px] top-[-6px]">0</p>
+          </Link>
         </div>
       </div>
     </div>

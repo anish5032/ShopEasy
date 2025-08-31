@@ -11,6 +11,7 @@ import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import Collection from "./pages/Collection";
 
+
 function App() {
   return (
     <div>

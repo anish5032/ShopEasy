@@ -1,57 +1,48 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useProductContext } from "../context/productcontext";
 import ProductItem from "../components/ProductItem";
+import { Link } from "react-router-dom";
 
 const Collection = () => {
   const { prods } = useProductContext();
   const [filterProducts, setFilterProducts] = useState([]);
   const [category, setCategory] = useState([]);
-  const [sortType, setSortType] = useState();
+  const [sortType, setSortType] = useState("");
 
-  const togglecategory = (e) => {
-    if (category.includes(e.target.value)) {
-      setCategory((prev) => prev.filter((item) => item !== e.target.value));
-    } else {
-      setCategory((prev) => [...prev, e.target.value]);
-    }
+  const toggleCategory = (e) => {
+    const value = e.target.value;
+    setCategory((prev) =>
+      prev.includes(value)
+        ? prev.filter((item) => item !== value)
+        : [...prev, value]
+    );
   };
 
-  const applyFilter = () => {
-    let prodsCopy = prods.slice();
+  // Combined filtering and sorting
+  useEffect(() => {
+    let updatedProducts = [...prods];
 
+    // Filter by category
     if (category.length > 0) {
-      prodsCopy = prodsCopy.filter((item) => category.includes(item.category));
+      updatedProducts = updatedProducts.filter((item) =>
+        category.includes(item.category)
+      );
     }
-    setFilterProducts(prodsCopy);
-  };
 
-  const sortProduct = () => {
-    let fpCopy = filterProducts.slice();
+    // Sort
     switch (sortType) {
       case "low-high":
-        setFilterProducts(fpCopy.sort((a, b) => a.price - b.price));
+        updatedProducts.sort((a, b) => a.price - b.price);
         break;
-
       case "high-low":
-        setFilterProducts(fpCopy.sort((a, b) => b.price - a.price));
-
+        updatedProducts.sort((a, b) => b.price - a.price);
+        break;
       default:
-        
         break;
     }
-  };
 
-  useEffect(() => {
-    setFilterProducts(prods);
-  }, []);
-
-  useEffect(() => {
-    applyFilter();
-  }, [category]);
-
-  useEffect(() => {
-    sortProduct();
-  }, [sortType]);
+    setFilterProducts(updatedProducts);
+  }, [prods, category, sortType]);
 
   return (
     <div className="flex gap-10 pt-10 border-t">
@@ -61,104 +52,63 @@ const Collection = () => {
           <p className="my-2 text-xl flex items-center cursor-pointer gap-2">
             FILTERS
           </p>
-          {/* category filter */}
+
+          {/* Category Filter */}
           <div className="border border-gray-300 pl-5 py-3 mt-6 block">
             <p className="mb-3 text-sm font-medium">CATEGORIES</p>
             <div className="flex flex-col gap-2 text-sm font-light text-gray-700">
-              <p className="flex gap-2">
-                <input
-                  className="w-3 cursor-pointer"
-                  type="checkbox"
-                  name=""
-                  id=""
-                  value={"ELECTRONIC"}
-                  onChange={togglecategory}
-                />{" "}
-                ELECTRONIC
-              </p>
-
-              <p className="flex gap-2">
-                <input
-                  className="w-3 cursor-pointer"
-                  type="checkbox"
-                  name=""
-                  id=""
-                  value={"FASHION"}
-                  onChange={togglecategory}
-                />{" "}
-                FASHION
-              </p>
-
-              <p className="flex gap-2">
-                <input
-                  className="w-3 cursor-pointer"
-                  type="checkbox"
-                  name=""
-                  id=""
-                  value={"HOME"}
-                  onChange={togglecategory}
-                />{" "}
-                HOME
-              </p>
+              {["ELECTRONIC", "FASHION", "HOME"].map((cat) => (
+                <label key={cat} className="flex gap-2 cursor-pointer">
+                  <input
+                    className="w-3 cursor-pointer"
+                    type="checkbox"
+                    value={cat}
+                    onChange={toggleCategory}
+                    checked={category.includes(cat)}
+                  />
+                  {cat}
+                </label>
+              ))}
             </div>
           </div>
         </div>
 
         <div className="range">
           <p>Price Range</p>
-          <input className="w-55" type="range" name="" id="" />
+          <input className="w-55" type="range" name="price" id="price-range" disabled />
         </div>
 
         <div className="ratings">
           <p>Ratings</p>
-          <p className="flex items-center gap-2">
-            <input
-              type="checkbox"
-              className="w-3 cursor-pointer"
-              name=""
-              id=""
-              value={"4nUp"}
-            />{" "}
-            4 Stars & Up
-          </p>
-          <p className="flex items-center gap-2">
-            <input
-              type="checkbox"
-              className="w-3 cursor-pointer"
-              name=""
-              id=""
-              value={"3nUp"}
-            />{" "}
-            3 Stars & Up
-          </p>
-          <p className="flex items-center gap-2">
-            <input
-              type="checkbox"
-              className="w-3 cursor-pointer"
-              name=""
-              id=""
-              value={"2nUp"}
-            />{" "}
-            2 Stars & Up
-          </p>
+          {["4nUp", "3nUp", "2nUp"].map((rating) => (
+            <label key={rating} className="flex items-center gap-2 cursor-pointer">
+              <input
+                type="checkbox"
+                className="w-3 cursor-pointer"
+                value={rating}
+                disabled
+              />
+              {rating[0]} Stars & Up
+            </label>
+          ))}
         </div>
 
         <div className="sort flex flex-col gap-1">
           <p>Sort By</p>
           <button
-            onClick={()=>setSortType("low-high")}
+            onClick={() => setSortType("low-high")}
             className="rounded-full text-gray-600 border-gray-400 border p-1 cursor-pointer"
           >
             Price: Low to High
           </button>
           <button
-            onClick={()=>setSortType("high-low")}
+            onClick={() => setSortType("high-low")}
             className="rounded-full text-gray-600 border-gray-400 border p-1 cursor-pointer"
           >
             Price: High to Low
           </button>
           <button
-            onClick={()=>setSortType("")}
+            onClick={() => setSortType("")}
             className="rounded-full text-gray-600 border-gray-400 border p-1 cursor-pointer"
           >
             Rating
@@ -166,8 +116,8 @@ const Collection = () => {
         </div>
       </div>
 
-      {/* right side */}
-      <div className="flex">
+      {/* Product Listing */}
+      <div className="flex flex-col flex-1">
         <div className="flex justify-between mb-4">
           <div className="title flex gap-2">
             <p className="text-2xl font-normal text-gray-500">All</p>
@@ -175,19 +125,22 @@ const Collection = () => {
           </div>
         </div>
 
-        {/* map product */}
-        <div className="grid grid-cols-4 gap-3 h-fit mt-12">
-          {filterProducts.map((prod, index) => {
-            return (
-              <ProductItem
-                key={index}
-                name={prod.name}
-                img={prod.image[0]}
-                desc={prod.short_desc}
-                price={prod.price}
-              />
-            );
-          })}
+        {/* Product Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 mt-12">
+          {filterProducts.length > 0 ? (
+            filterProducts.map((prod) => (
+              <Link to={`/singleProd/${prod._id}`} key={prod._id}>
+                <ProductItem
+                  name={prod.name}
+                  img={prod.image[0]}
+                  desc={prod.short_desc}
+                  price={prod.price}
+                />
+              </Link>
+            ))
+          ) : (
+            <p className="text-gray-500 col-span-full">No products found.</p>
+          )}
         </div>
       </div>
     </div>
