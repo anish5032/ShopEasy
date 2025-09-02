@@ -10,7 +10,9 @@ import ErrorPage from "./pages/ErrorPage";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import Collection from "./pages/Collection";
-
+import PlaceOrder from "./pages/PlaceOrder";
+import Orders from "./pages/orders";
+import Login from "./pages/Login";
 
 function App() {
   return (
@@ -27,6 +29,9 @@ function App() {
             <Route path="/singleprod/:id" element={<Singleprod />}></Route>
             <Route path="/cart" element={<Cart />}></Route>
             <Route path="/collection" element={<Collection />}></Route>
+            <Route path="/place-order" element={<PlaceOrder />}></Route>
+            <Route path="/orders" element={<Orders />}></Route>
+            <Route path="/login" element={<Login />}></Route>
             <Route path="*" element={<ErrorPage />}></Route>
           </Routes>
         </div>

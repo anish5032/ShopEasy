@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
-import { useProductContext } from '../context/productcontext';
+import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+import { useProductContext } from "../context/productcontext";
 
 const Singleprod = () => {
-  const { id } = useParams(); 
-  const { prods, cartItems, setCartItems } = useProductContext(); 
+  const { id } = useParams();
+  const { prods, addToCart } = useProductContext(); // ✅ use helper instead of raw cartItems
   const [product, setProduct] = useState(null);
-  const [image, setImage] = useState('');
+  const [image, setImage] = useState("");
 
   useEffect(() => {
     const foundProduct = prods.find((p) => p._id === id);
@@ -17,7 +17,6 @@ const Singleprod = () => {
     }
   }, [id, prods]);
 
-
   // ✅ Handle invalid product ID
   if (!product && prods.length > 0) {
     return (
@@ -27,28 +26,12 @@ const Singleprod = () => {
     );
   }
 
-  // ✅ Add to Cart handler
-
-
-const addToCart = () => {
-  const existingItem = cartItems.find((item) => item._id === product._id);
-
-  if (existingItem) {
-    const updatedCart = cartItems.map((item) =>
-      item._id === product._id
-        ? { ...item, quantity: item.quantity + 1 }
-        : item
-    );
-    setCartItems(updatedCart);
-  } else {
-    setCartItems([...cartItems, { ...product, quantity: 1 }]);
+  if (!product) {
+    return <div className="p-10 text-center text-lg">Loading...</div>;
   }
-
-};
 
   return (
     <div className="p-10 flex flex-col md:flex-row gap-10 items-start justify-center bg-white">
-      
       {/* Thumbnails */}
       <div className="flex md:flex-col gap-4">
         {product.image.map((imgUrl) => (
@@ -58,7 +41,7 @@ const addToCart = () => {
             alt="thumbnail"
             onClick={() => setImage(imgUrl)}
             className={`w-16 h-16 object-cover rounded cursor-pointer border-2 ${
-              image === imgUrl ? 'border-red-600' : 'border-gray-300'
+              image === imgUrl ? "border-red-600" : "border-gray-300"
             } hover:border-red-600 transition`}
           />
         ))}
@@ -94,7 +77,7 @@ const addToCart = () => {
         </p>
 
         <button
-          onClick={addToCart} // ⬅️ handle click
+          onClick={() => addToCart(product)} // ✅ just call context function
           className="bg-red-600 text-white py-2 px-6 rounded-full w-fit hover:bg-red-700 transition"
         >
           Add to Cart

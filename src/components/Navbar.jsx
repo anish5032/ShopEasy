@@ -10,9 +10,7 @@ const Navbar = () => {
   const {cartItems}=useProductContext()
   const [count, setCount] = useState(0)
   useEffect(() => {
-      console.log(cartItems);
       setCount(cartItems.length)
-      console.log(count);
   }, [cartItems])
   
 
@@ -64,11 +62,11 @@ const Navbar = () => {
 
       <div className="flex gap-6">
         <div className="group relative">
-          <img
+          <Link to='/login'><img
             src={assets.profile_icon}
             className="w-5 cursor-pointer"
             alt=""
-          />
+          /></Link>
 
           <div className="group-hover:block hidden absolute dropdown-menu right-0 pt-2">
             <div className="flex flex-col gap-2 w-36 py-3 px-5 text-gray-500 bg-slate-100 rounded">

@@ -6,6 +6,9 @@
   import cat_home from "./cat_home.jpg";
   import cat_toys from "./cat_toys.avif";
   import cat_soprts from "./cat_sports.avif";
+  import stripe_logo from "./Stripe_Logo.png"
+  import razorpay_logo from "./Razorpay_logo.svg"
+  import about_img from "./about_img.jpg"
 
   import iph_1 from "./iph_1.jpg";
   import iph_2 from "./iph_2.jpeg";
@@ -26,6 +29,9 @@
     cat_home,
     cat_toys,
     cat_soprts,
+    stripe_logo,
+    razorpay_logo,
+    about_img
   };
 
 export const products = [
